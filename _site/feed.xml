@@ -5,23 +5,652 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 19 Mar 2018 19:13:37 +0800</pubDate>
-    <lastBuildDate>Mon, 19 Mar 2018 19:13:37 +0800</lastBuildDate>
+    <pubDate>Wed, 18 Apr 2018 13:38:27 +0800</pubDate>
+    <lastBuildDate>Wed, 18 Apr 2018 13:38:27 +0800</lastBuildDate>
     <generator>Jekyll v3.7.3</generator>
     
       <item>
-        <title>这是一篇测试文档</title>
-        <description>&lt;blockquote&gt;
-  &lt;p&gt;“Come on, let’s test ”&lt;/p&gt;
-&lt;/blockquote&gt;
+        <title>关于数独的那点事</title>
+        <description>&lt;h1 id=&quot;数独介绍&quot;&gt;数独介绍&lt;/h1&gt;
 
-&lt;p&gt;今天是2018年3月16日，春风气爽，这是博客的第一篇博文。&lt;/p&gt;
+&lt;p&gt;       数独是一个通过逻辑推理填写9*9宫格的益智类游戏，填写规则根据数独的种类不同而变化，最基础的数独的要求是，在每个格子中填写1~9中的数字，使得每行每列每宫（3*3）中不出现重复的数字。&lt;/p&gt;
+
+&lt;p&gt;       数独的难度并不是与需要填的格子的数量成正比，而是与填写时需要用到的逻辑推理的方法及其数量不同而不同，最简单的数独只需要排除法就可解出。&lt;/p&gt;
+
+&lt;p&gt;       关于数独解的数量，本人认为，好的数独题目应该是单解题，即一个数独只有单独一个解的题，但有时我们也会遇到多解题，即一个数独有多个解，我认为数独之魅力在于通过严密的逻辑推理，一点一点将数独填出。此时，一定有人会问，真的可以只通过逻辑推理就将一个数独填写出来么？作为一名资深菜鸡，我认为答案是肯定的，一是因为我相信一定可以通过逻辑填出，所以我相信自己现在的速度慢，一定是因为我在填写时发现逻辑的速度慢，所以我才会不断练习不断努力，二是因为和高手pk了这么多次，打死我也不相信他们试数能试的这么快。&lt;strong&gt;然而&lt;/strong&gt;，著名数独学者&lt;em&gt;lotsofone&lt;/em&gt;曾说过，多解题可以训练一个人风险分析的能力，由于笔者和该学者利益相关，此处不做过多评价。&lt;/p&gt;
+
+&lt;h1 id=&quot;数独软件介绍&quot;&gt;数独软件介绍&lt;/h1&gt;
+
+&lt;h2 id=&quot;需求分析&quot;&gt;需求分析&lt;/h2&gt;
+
+&lt;p&gt;       由于对数独的喜爱，结合自身玩数独的经历，我认为一款优质的数独软件需要做到以下几点&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;可以提供优质的区分度明显的单解题目&lt;/li&gt;
+  &lt;li&gt;用户可自主设置填写数独时的 &lt;code class=&quot;highlighter-rouge&quot;&gt;显示时间与否&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;高亮相同数字与否&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;错误提示与否&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;简单优雅的UI，其中特别强调的是note模式下数字显示的优化&lt;/li&gt;
+  &lt;li&gt;针对手机屏幕小的特点，填写数独的方式应为拖拽方式填写（感谢著名数独学者&lt;em&gt;lotsofone&lt;/em&gt;提供的建议）&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;       当然，除了基本的数独要求外，我更希望数独是一个交友手段，通过数独，将用户聚合，给数独爱好者一个良好的互动平台，所以我同时希望数独有更强的用户交互性，开发pk平台等。&lt;/p&gt;
+
+&lt;p&gt;       作为一名已经开发了好久的数独软件开发者，我为什么要写需求分析呢？答案很简答，因为这便是我们的软件的目标 :-)&lt;/p&gt;
+
+&lt;h2 id=&quot;软件设计模式&quot;&gt;软件设计模式&lt;/h2&gt;
+
+&lt;p&gt;       MVC（Model View Controller）模式是我学习的第一个软件软件设计模式，同时我认为按照mvc来写软件，各部分的功能能清晰一些，所以此软件采用MVC设计模式。下面简答介绍下MVC&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Model&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;模型，是开发软件功能的原型，在本项目中模型即为数独本身。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;View&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;界面，用于展现给用户的界面以及简单的界面交互，在本项目中主要为做数独的page。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Controller&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;控制器，用于打通模型与界面，用户在界面上产生事件后，通过控制器调用模型的不同函数，此外，控制器也可访问数据来交付给界面，方便界面渲染出相应的页面，在本项目中为控制数独页面的js文件。&lt;/p&gt;
+
+&lt;h1 id=&quot;微信小程序开发介绍&quot;&gt;微信小程序开发介绍&lt;/h1&gt;
+
+&lt;p&gt;       首先要给小程序戴高帽，微信小程序“无需安装，用完即走”的产品理念非常帮，由于微信小程序体积较小，接口多，所以，从客户角度来看，轻量级的手机app非常便捷，用户懒得为了一个功能下一个大体积的app，小程序随用随下，用完即走。同时，如果腾讯可以结合用户数据分析，更加智能的为用户推荐小程序，整个生态便会变得更加高效且智能。&lt;/p&gt;
+
+&lt;p&gt;       接下来介绍一下微信小程序开发的基本知识。&lt;/p&gt;
+
+&lt;p&gt;       微信开发要了解四个文件类型，wxml，wxss，js，json&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;wxml是类html，它们的不同在于，wxml将div, p, span等统一整理为view，同时在wxml增加了逻辑判断，进一步划分Controller和View的界限，该在View中解决的问题不在Controller中判断。至于为什么微信搞这一套，可见知乎，内有Hux大佬的回答：&lt;a href=&quot;https://www.zhihu.com/question/51809406&quot;&gt;微信小程序为什么不用HTML5、CSS，自己搞了个WXML、WXSS，很多框架用不了，好处一点不知道？&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;wxss是类css，即控制html元素的格式的文件。&lt;/li&gt;
+  &lt;li&gt;js脚本文件便是写控制器和模型的地方，js属逻辑层，做交互逻辑的，同时微信小程序也推荐将本地数据存为js，在util.js中存储本地数据，再讲数据接口暴露出来即可。好吧，你们应该也看出来了，我真的不知道该怎么介绍这鬼玩意，懂得都懂，不懂得我也解释不清楚。&lt;/li&gt;
+  &lt;li&gt;json配置文件，负责页面背景色，标题栏内容，颜色等配置，同时在app.json还需要声明小程序需要的page页面，此处有一个小细节，page属性中的第一个page默认为开发时编译后显示的页面。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;       所以要开发微信小程序，写好每一个页面的这四个文件即可。&lt;/p&gt;
+
+&lt;h1 id=&quot;微信小程序-数独-sudoku-in-wechat&quot;&gt;微信小程序-数独 Sudoku IN WeChat&lt;/h1&gt;
+
+&lt;p&gt;       首先谈一下模型吧，数独模型，在数独类中，我设定了四个变量&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;变量名称&lt;/th&gt;
+      &lt;th&gt;类型&lt;/th&gt;
+      &lt;th&gt;用途&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;boardData&lt;/td&gt;
+      &lt;td&gt;cellModel(*81)&lt;/td&gt;
+      &lt;td&gt;记录每一个格子的状态&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;row&lt;/td&gt;
+      &lt;td&gt;Set(*81)&lt;/td&gt;
+      &lt;td&gt;记录每一行每一个数字的填写位置&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;col&lt;/td&gt;
+      &lt;td&gt;Set(*81)&lt;/td&gt;
+      &lt;td&gt;记录每一列每一个数字的填写位置&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;zone&lt;/td&gt;
+      &lt;td&gt;Set(*81)&lt;/td&gt;
+      &lt;td&gt;记录每一宫每一个数字的填写位置&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;       其中对于每个格子，我要存储的内容有（cellModel）&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;变量名称&lt;/th&gt;
+      &lt;th&gt;类型&lt;/th&gt;
+      &lt;th&gt;用途&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;cat&lt;/td&gt;
+      &lt;td&gt;bool&lt;/td&gt;
+      &lt;td&gt;记录该格子是题目类型，还是用户可填写类型&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;note&lt;/td&gt;
+      &lt;td&gt;bool&lt;/td&gt;
+      &lt;td&gt;记录改格子显示模式为note模式还是普通模式&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;content&lt;/td&gt;
+      &lt;td&gt;string&lt;/td&gt;
+      &lt;td&gt;记录格子里要填的数字（note模式下数字个数可大于1）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;color&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+      &lt;td&gt;记录界面显示时要填的颜色，设置0为用户可填写的正常颜色，1为题目设置的数的颜色，2为用户填写出现冲突时的颜色，3为用户开启同数字提示功能后的高亮颜色&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;       提供函数接口有&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;函数名&lt;/th&gt;
+      &lt;th&gt;返回值&lt;/th&gt;
+      &lt;th&gt;描述&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;getData(x,y)&lt;/td&gt;
+      &lt;td&gt;cellModel&lt;/td&gt;
+      &lt;td&gt;用于更新界面时，得到boardData的数据&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;setData(x,y,num)&lt;/td&gt;
+      &lt;td&gt;null&lt;/td&gt;
+      &lt;td&gt;用于用户输入填写数字时更新boardData&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;setGame(x,y,num)&lt;/td&gt;
+      &lt;td&gt;null&lt;/td&gt;
+      &lt;td&gt;用于输入题目数据&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;freshProperty&lt;/td&gt;
+      &lt;td&gt;null&lt;/td&gt;
+      &lt;td&gt;用户每次填入数字之后需要更新boardData的数据&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;judgeCorrect&lt;/td&gt;
+      &lt;td&gt;bool&lt;/td&gt;
+      &lt;td&gt;判断答案是否正确&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;reset&lt;/td&gt;
+      &lt;td&gt;null&lt;/td&gt;
+      &lt;td&gt;重置数独&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;show&lt;/td&gt;
+      &lt;td&gt;null&lt;/td&gt;
+      &lt;td&gt;调试用&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;       其实大部分函数都很简答，此处算是有一个小亮点吧，就是freshProperty()中，利用row/col/zone三个set去快速更新color，判断每个set的数量是否大于1，如果大于1，说明set中存的格子都是有问题的，直接更新color即可，这个方法减少了遍历寻找出错格子的时间。其中set的存储用了一个简单的哈希，行数*10+列数，这样保证存储和寻找的时候也很快速。同时，在实现是注意note模式的格子对set的影响，最好判断，因为note模式里的格子的内容不应该存储于记录表中，而note与非note的转换时，需要注意下小细节。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;       之后讲下View，由于没有网页开发基础，加之配色细胞严重匮乏，所以，view就比较丑陋。&lt;/p&gt;
+
+&lt;p&gt;       先是一行功能行，俩button+一个text，下面是两个表，一个是board，一个是table，都是拿canvas画上去的，乍一看，画面十分简(chou)约(lou)。&lt;/p&gt;
+
+&lt;p&gt;       其实在view中还做了一层加载层，在数据没有加载成功时，让加载层覆盖在整个页面上，呈现加载动画。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2018/04/07/5ac87fdf2af88.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;       最后说一下Controller，在数独页面的js文件里有以下一些变量和函数&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;内容&lt;/th&gt;
+      &lt;th&gt;类型&lt;/th&gt;
+      &lt;th&gt;描述&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;sudoku&lt;/td&gt;
+      &lt;td&gt;sudoku类&lt;/td&gt;
+      &lt;td&gt;数独的实例&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;remainNum&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+      &lt;td&gt;记录宫中剩余个数&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;correctOrNot&lt;/td&gt;
+      &lt;td&gt;布尔值&lt;/td&gt;
+      &lt;td&gt;判断是否成功&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;level&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+      &lt;td&gt;游戏难度&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;timeFlag&lt;/td&gt;
+      &lt;td&gt;时间是否开始&lt;/td&gt;
+      &lt;td&gt;记录时间开始标记&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;noteOrNot&lt;/td&gt;
+      &lt;td&gt;布尔值&lt;/td&gt;
+      &lt;td&gt;是否开启note模式&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;timeOrNot&lt;/td&gt;
+      &lt;td&gt;布尔值&lt;/td&gt;
+      &lt;td&gt;是否开启时间&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;hintOrNor&lt;/td&gt;
+      &lt;td&gt;布尔值&lt;/td&gt;
+      &lt;td&gt;是否开启高亮同数字模式&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;generateOk&lt;/td&gt;
+      &lt;td&gt;布尔值&lt;/td&gt;
+      &lt;td&gt;判断数据加载情况&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;pathStack&lt;/td&gt;
+      &lt;td&gt;stack&lt;/td&gt;
+      &lt;td&gt;记录做题路径&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;函数名&lt;/th&gt;
+      &lt;th&gt;返回值&lt;/th&gt;
+      &lt;th&gt;描述&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;loadData&lt;/td&gt;
+      &lt;td&gt;int**&lt;/td&gt;
+      &lt;td&gt;获取题目数据&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;freshUI&lt;/td&gt;
+      &lt;td&gt;null&lt;/td&gt;
+      &lt;td&gt;更新视图&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;judge&lt;/td&gt;
+      &lt;td&gt;null&lt;/td&gt;
+      &lt;td&gt;判断正确与否&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;监听board函数&lt;/td&gt;
+      &lt;td&gt;null&lt;/td&gt;
+      &lt;td&gt;监听点击哪个cell，更新stack，修改data&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;监听table函数&lt;/td&gt;
+      &lt;td&gt;null&lt;/td&gt;
+      &lt;td&gt;监听点击哪个数字&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;timeStart&lt;/td&gt;
+      &lt;td&gt;null&lt;/td&gt;
+      &lt;td&gt;开始时间&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;timeStop&lt;/td&gt;
+      &lt;td&gt;null&lt;/td&gt;
+      &lt;td&gt;停止时间&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;newGame&lt;/td&gt;
+      &lt;td&gt;null&lt;/td&gt;
+      &lt;td&gt;开始新的游戏&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;redo&lt;/td&gt;
+      &lt;td&gt;null&lt;/td&gt;
+      &lt;td&gt;撤销&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;share&lt;/td&gt;
+      &lt;td&gt;null&lt;/td&gt;
+      &lt;td&gt;成功后显示分享窗口&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;canvasIdErrorCallback&lt;/td&gt;
+      &lt;td&gt;null&lt;/td&gt;
+      &lt;td&gt;获取并输出canvas绘制时的错误事件&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;       整个页面的业务就是，先显示加载动画，获取数独题目数据，更改generateOK值，去除加载动画，freshUI，显示数独界面，timeStart，开始计时，用户拖拽数字到数独表中，同时记录用户填写的数字与填入的位置，将要修改的格子当前的状态存入栈内，之后sudoku.setData，将填写的情况记录进数独实例中，freshProperty，freshUI,更新remainNum，一直重复操作，直到remainNum==0，judge，如果返回true，timeStop，share函数显示分享窗口，如果返回false，就继续等到下一次remainNum==0时进行同样的判断。&lt;/p&gt;
+
+&lt;h1 id=&quot;总结&quot;&gt;总结&lt;/h1&gt;
+
+&lt;p&gt;       总的来说，在开发过程中大体的思路就是上述，其实还有很多别的页面要做，例如设置页面，个人信息页面，关于页面等，项目还需要队友一起完成，此外，实现细节也会有很多问题，view中canvas绘制时，数字居中显示我就用了三四个小时的时间做人工处理，还有微信提供的新单位rpx和传统单位px的各种转换等等，这个项目其实需要注意的细节还是有一定数量的，同时pk的后端还没有学习，还需要一定的学习量，任务量颇大。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;但是&lt;/strong&gt;，&lt;/p&gt;
+
+&lt;p&gt;我&lt;strong&gt;喜欢&lt;/strong&gt;啊！&lt;/p&gt;
+
+&lt;p&gt;项目开源在&lt;a href=&quot;https://github.com/NEUHighSaltValue/Sudoku_in_Wechat&quot;&gt;github&lt;/a&gt;上，喜欢的点一波小星星&lt;/p&gt;
 </description>
-        <pubDate>Fri, 16 Mar 2018 08:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2018/03/16/hello-2018/</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/03/16/hello-2018/</guid>
+        <pubDate>Sat, 07 Apr 2018 08:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2018/04/07/%E5%85%B3%E4%BA%8E%E6%95%B0%E7%8B%AC%E7%9A%84%E9%82%A3%E7%82%B9%E4%BA%8B/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/04/07/%E5%85%B3%E4%BA%8E%E6%95%B0%E7%8B%AC%E7%9A%84%E9%82%A3%E7%82%B9%E4%BA%8B/</guid>
         
-        <category>生活</category>
+        <category>微信小程序</category>
+        
+        <category>数独</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>监督学习之knn和svm</title>
+        <description>&lt;p&gt;    偷懒了好几天，这两天总算把信息安全的进度赶了赶，在关联算法失效的时候决定用监督学习的算法解决，起初决定采用knn来分类，在后续学习中，无意发现了svm，在测试中发现svm的准确率比最好的knn搞0.1个百分比，故最终采用了svm。下对两种监督学习进行简介。&lt;/p&gt;
+
+&lt;h2 id=&quot;一简单的理论介绍&quot;&gt;一、简单的理论介绍&lt;/h2&gt;
+
+&lt;p&gt;    首先，对监督学习讲解一下，监督学习和无监督学习的区别就是训练数据的label的有无，监督学习需要带有label，而无监督学习不需要label。在这次实践中，我们做的是网络入侵检测，采用的数据集是kddcup的99数据集(1), 拥有42个维度，其中前41个是描述网络行为的特征值，最后一个是类型，即label。&lt;/p&gt;
+
+&lt;p&gt;    knn，即k-NearestNeighbor，k最邻近问题，为方便介绍，假设每条数据有两个特征值x和y，一个label，即点的颜色，先将所有数据放在平面直角坐标系中，如下图1.1的红点和蓝点，红点和蓝点所构成的所有点即为训练集，而绿点则是测试点，k最邻近问题的最邻近就是直观的邻近的意思，即离得近，而k指的是找几个离得最近的，如果k=3，那么所选的点即为实线所包含的三个点，若k=5，则为虚线所包含的五个点，而对于预测点分类的预测则是根据所选k个点中最多个数的类别所确定，同样以下图为例，如果k=3，那么预测点的结果将为红色（2个红色，1个蓝色），如果k=5，那么预测点的结果将为蓝色（3个蓝色，2个红色），由此可见，参数k的选取直接影响了预测结果的准确度。&lt;/p&gt;
+
+&lt;div align=&quot;center&quot;&gt;    
+&amp;lt;img src=&quot;https://i.loli.net/2018/04/18/5ad6d0a6ab9d1.jpg&quot; width=200 height=200 &amp;gt;
+&lt;br /&gt;
+&lt;text&gt; 图1.1 knn示例&lt;/text&gt;
+&lt;/div&gt;
+
+&lt;p&gt;    svm，即Support Vector Machine，中文翻译也很暴力，支持向量机，一听就给人一种懵逼的感觉，下面做简单分解解释：机，即机器，指的是这个模型是一个机器，此外它的作用是分类，所以可以理解为一个分类用的机器，support vector之后再介绍。同样为了简单介绍采用二维介绍，样本同样是带有颜色label的有x和y两个属性的训练点集合，如下图1.2，svm要做什么呢，它要找一条线，使得把两个类别的点区分开来，那么对于接下来的测试点，看测试点位于哪一侧，就将其归类于该类，那么问题来了，符合这个要求的线有很多条，比如图中的黑线和灰线就是其中的两条，那么什么才是最优解呢，现在就要介绍support vector了，就是两个类别中的点离这条分割线最近的距离，如何才是最优解呢，就是让两个类别的离分割线最近的点，再回到最近的问题，什么才是最优解呢，那就是支持向量离分割线越远越好，因为距离越远，允许容纳的点越多，使得分类的越平均，更加理想。&lt;/p&gt;
+
+&lt;div align=&quot;center&quot;&gt;    
+&amp;lt;img src=&quot;https://i.loli.net/2018/04/18/5ad6d30259b77.jpg&quot; width=200 height=200 &amp;gt;
+&lt;br /&gt;
+&lt;text&gt; 图1.2 svm示例&lt;/text&gt;
+&lt;/div&gt;
+
+&lt;p&gt;    上面所说的是线性可区分的，然而遇到线性不可分的该怎么办呢，svm又引入了kernel，kernel学的没有十分的透彻，简单的理解了一下，就是把平面变成了曲面，即将原平面函数变成凸二次函数，再加上约束条件，就完成了一个通过增维使非线性样点线性可区分的目的，之后用一个平面去切割凸面，则就找到了一个分割面，把测试点带入凸二次函数中，即可得到划分结果。&lt;/p&gt;
+
+&lt;p&gt;    有个可视化svm的kernel的视频（2），个人看了表示恍然大悟的感觉&lt;/p&gt;
+
+&lt;div align=&quot;center&quot;&gt;   
+&lt;embed src=&quot;https://imgcache.qq.com/tencentvideo_v1/playerv3/TPout.swf?max_age=86400&amp;amp;v=20161117&amp;amp;vid=k05170ntgzc&amp;amp;auto=0&quot; allowfullscreen=&quot;true&quot; quality=&quot;high&quot; width=&quot;700&quot; height=&quot;400&quot; align=&quot;middle&quot; allowscriptaccess=&quot;always&quot; type=&quot;application/x-shockwave-flash&quot; /&gt;&amp;lt;/embed&amp;gt;
+&lt;/div&gt;
+
+&lt;p&gt;    对于高维的svm，同理二维，继续升维，找到超平面，一刀切下去即可、不过据说还有些更高级的处理方式，学疏才浅，没看明白，就不瞎掰扯了。&lt;/p&gt;
+
+&lt;h2 id=&quot;二实践&quot;&gt;二、实践&lt;/h2&gt;
+
+&lt;p&gt;    在这次实践中，主要用的是numpy和sklearn两个库，numpy用于存放训练集，label集，还有测试集，以及预测结果，sklearn则是提供了众多机器学习模型，因为懒，不想自己写了，所以直接调用了。&lt;/p&gt;
+
+&lt;p&gt;    先说knn吧，先建它一个knn，后面的参数是调整k值的（默认是5），之后把原材料，即训练数据和训练标签fit进去，好了，一个knn就搭建好了。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;from sklearn import neighbors
+knn = neighbors.KNeighborsClassifier(n_neighbors=5)
+knn.fit(trainData,trainLabel)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;    之后，把测试数据predict一下，就可以得到预测结果了。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;predict = knn.predict(testData)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;    此外，还可以知道每个类别的可能性。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;predict_proba = knn.predict_proba(testData)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;    好了，这样一个knn的搭建、导入训练集、预测的过程就结束了。&lt;/p&gt;
+
+&lt;p&gt;    之后再来说svm的，更加简单。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;from sklearn import 
+svm = svm.SVC()
+svm.fit(trainData,trainLabel)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;    预测一下testData。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;predict = clf.predict(testData)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;三彩shua蛋ping&quot;&gt;三、彩(shua)蛋(ping)&lt;/h2&gt;
+
+&lt;p&gt;    如开头所说，我本来是学习knn的，后来偶然间发现了svm，所以我就也测试了一下，将knn的k从1到49（range（50）呵呵哒）都试了下，结果惊喜的发现，svm比最好的knn的预测结果都准一点点，测试结果如下&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1:
+knn: Total:494021 Correct: 433614 Error: 60407 Accuracy: 0.8777238214569826
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+2:
+knn: Total:494021 Correct: 431819 Error: 62202 Accuracy: 0.8740903726764652
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+3:
+knn: Total:494021 Correct: 433837 Error: 60184 Accuracy: 0.8781752192720552
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+4:
+knn: Total:494021 Correct: 433838 Error: 60183 Accuracy: 0.878177243477504
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+5:
+knn: Total:494021 Correct: 434368 Error: 59653 Accuracy: 0.8792500723653448
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+6:
+knn: Total:494021 Correct: 436099 Error: 57922 Accuracy: 0.8827539719971418
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+7:
+knn: Total:494021 Correct: 436564 Error: 57457 Accuracy: 0.8836952275308134
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+8:
+knn: Total:494021 Correct: 436603 Error: 57418 Accuracy: 0.883774171543315
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+9:
+knn: Total:494021 Correct: 436921 Error: 57100 Accuracy: 0.8844178688760195
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+10:
+knn: Total:494021 Correct: 436910 Error: 57111 Accuracy: 0.8843956026160831
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+11:
+knn: Total:494021 Correct: 437011 Error: 57010 Accuracy: 0.8846000473664075
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+12:
+knn: Total:494021 Correct: 436955 Error: 57066 Accuracy: 0.8844866918612772
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+13:
+knn: Total:494021 Correct: 436978 Error: 57043 Accuracy: 0.8845332485865985
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+14:
+knn: Total:494021 Correct: 437036 Error: 56985 Accuracy: 0.8846506525026264
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+15:
+knn: Total:494021 Correct: 437080 Error: 56941 Accuracy: 0.8847397175423717
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+16:
+knn: Total:494021 Correct: 436660 Error: 57361 Accuracy: 0.883889551253894
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+17:
+knn: Total:494021 Correct: 436829 Error: 57192 Accuracy: 0.8842316419747339
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+18:
+knn: Total:494021 Correct: 436522 Error: 57499 Accuracy: 0.8836102109019657
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+19:
+knn: Total:494021 Correct: 436659 Error: 57362 Accuracy: 0.8838875270484453
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+20:
+knn: Total:494021 Correct: 436492 Error: 57529 Accuracy: 0.883549484738503
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+21:
+knn: Total:494021 Correct: 436868 Error: 57153 Accuracy: 0.8843105859872353
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+22:
+knn: Total:494021 Correct: 436497 Error: 57524 Accuracy: 0.8835596057657468
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+23:
+knn: Total:494021 Correct: 436452 Error: 57569 Accuracy: 0.8834685165205528
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+24:
+knn: Total:494021 Correct: 436264 Error: 57757 Accuracy: 0.8830879658961865
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+25:
+knn: Total:494021 Correct: 436323 Error: 57698 Accuracy: 0.8832073940176632
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+26:
+knn: Total:494021 Correct: 436219 Error: 57802 Accuracy: 0.8829968766509926
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+27:
+knn: Total:494021 Correct: 436259 Error: 57762 Accuracy: 0.8830778448689428
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+28:
+knn: Total:494021 Correct: 436098 Error: 57923 Accuracy: 0.8827519477916931
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+29:
+knn: Total:494021 Correct: 436127 Error: 57894 Accuracy: 0.882810649749707
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+30:
+knn: Total:494021 Correct: 435959 Error: 58062 Accuracy: 0.8824705832343159
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+31:
+knn: Total:494021 Correct: 436223 Error: 57798 Accuracy: 0.8830049734727876
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+32:
+knn: Total:494021 Correct: 436117 Error: 57904 Accuracy: 0.8827904076952194
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+33:
+knn: Total:494021 Correct: 436320 Error: 57701 Accuracy: 0.8832013214013169
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+34:
+knn: Total:494021 Correct: 436410 Error: 57611 Accuracy: 0.8833834998917051
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+35:
+knn: Total:494021 Correct: 436500 Error: 57521 Accuracy: 0.8835656783820931
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+36:
+knn: Total:494021 Correct: 436557 Error: 57464 Accuracy: 0.8836810580926722
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+37:
+knn: Total:494021 Correct: 436564 Error: 57457 Accuracy: 0.8836952275308134
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+38:
+knn: Total:494021 Correct: 435528 Error: 58493 Accuracy: 0.881598150685902
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+39:
+knn: Total:494021 Correct: 435561 Error: 58460 Accuracy: 0.881664949465711
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+40:
+knn: Total:494021 Correct: 154708 Error: 339313 Accuracy: 0.31316077656617836
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+41:
+knn: Total:494021 Correct: 154468 Error: 339553 Accuracy: 0.3126749672584769
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+42:
+knn: Total:494021 Correct: 154426 Error: 339595 Accuracy: 0.31258995062962913
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+43:
+knn: Total:494021 Correct: 150380 Error: 343641 Accuracy: 0.3044000153839614
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+44:
+knn: Total:494021 Correct: 132313 Error: 361708 Accuracy: 0.26782869554128264
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+45:
+knn: Total:494021 Correct: 124802 Error: 369219 Accuracy: 0.25262488841567465
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+46:
+knn: Total:494021 Correct: 124646 Error: 369375 Accuracy: 0.25230911236566866
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+47:
+knn: Total:494021 Correct: 116557 Error: 377464 Accuracy: 0.23593531449067956
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+48:
+knn: Total:494021 Correct: 102720 Error: 391301 Accuracy: 0.20792638369623964
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+
+49:
+knn: Total:494021 Correct: 102005 Error: 392016 Accuracy: 0.20647907680037894
+svm: Total:494021 Correct: 437527 Error: 56494 Accuracy: 0.8856445373779657
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;    遂knn卒，svm胜，狭路相逢准者胜。&lt;/p&gt;
+
+&lt;p&gt;    &lt;strong&gt;特此公告：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;        &lt;strong&gt;初学者学习记录，不对之处请指正，不喜勿喷。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;(1) &lt;a href=&quot;http://kdd.ics.uci.edu/databases/kddcup99/kddcup99.html&quot;&gt;kddcup99数据集地址&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;(2) &lt;a href=&quot;https://v.qq.com/x/page/k05170ntgzc.html&quot;&gt;kernel视频链接&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 03 Feb 2018 08:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2018/02/03/%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E4%B9%8Bknn%E5%92%8Csvm/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/02/03/%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E4%B9%8Bknn%E5%92%8Csvm/</guid>
+        
+        <category>监督学习</category>
+        
+        <category>knn</category>
+        
+        <category>svm</category>
         
         
       </item>

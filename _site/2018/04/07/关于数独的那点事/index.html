@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>关于数独的那点事 - Tianzhi</title>
+
+    <link rel="canonical" href="http://localhost:4000/2018/04/07/%E5%85%B3%E4%BA%8E%E6%95%B0%E7%8B%AC%E7%9A%84%E9%82%A3%E7%82%B9%E4%BA%8B/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+
+    <!-- Not safe in https, Eric change -->
+    
+    <!-- <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Tianzhi Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/sudoku.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/sudoku.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#微信小程序" title="微信小程序">微信小程序</a>
+                        
+                        <a class="tag" href="/tags/#数独" title="数独">数独</a>
+                        
+                    </div>
+                    <h1>关于数独的那点事</h1>
+                    
+                    
+                    <h2 class="subheading">我爱数独啊</h2>
+                    
+                    <span class="meta">Posted by Eric on April 7, 2018</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<h1 id="数独介绍">数独介绍</h1>
+
+<p>       数独是一个通过逻辑推理填写9*9宫格的益智类游戏，填写规则根据数独的种类不同而变化，最基础的数独的要求是，在每个格子中填写1~9中的数字，使得每行每列每宫（3*3）中不出现重复的数字。</p>
+
+<p>       数独的难度并不是与需要填的格子的数量成正比，而是与填写时需要用到的逻辑推理的方法及其数量不同而不同，最简单的数独只需要排除法就可解出。</p>
+
+<p>       关于数独解的数量，本人认为，好的数独题目应该是单解题，即一个数独只有单独一个解的题，但有时我们也会遇到多解题，即一个数独有多个解，我认为数独之魅力在于通过严密的逻辑推理，一点一点将数独填出。此时，一定有人会问，真的可以只通过逻辑推理就将一个数独填写出来么？作为一名资深菜鸡，我认为答案是肯定的，一是因为我相信一定可以通过逻辑填出，所以我相信自己现在的速度慢，一定是因为我在填写时发现逻辑的速度慢，所以我才会不断练习不断努力，二是因为和高手pk了这么多次，打死我也不相信他们试数能试的这么快。<strong>然而</strong>，著名数独学者<em>lotsofone</em>曾说过，多解题可以训练一个人风险分析的能力，由于笔者和该学者利益相关，此处不做过多评价。</p>
+
+<h1 id="数独软件介绍">数独软件介绍</h1>
+
+<h2 id="需求分析">需求分析</h2>
+
+<p>       由于对数独的喜爱，结合自身玩数独的经历，我认为一款优质的数独软件需要做到以下几点</p>
+
+<ol>
+  <li>可以提供优质的区分度明显的单解题目</li>
+  <li>用户可自主设置填写数独时的 <code class="highlighter-rouge">显示时间与否</code>，<code class="highlighter-rouge">高亮相同数字与否</code>，<code class="highlighter-rouge">错误提示与否</code></li>
+  <li>简单优雅的UI，其中特别强调的是note模式下数字显示的优化</li>
+  <li>针对手机屏幕小的特点，填写数独的方式应为拖拽方式填写（感谢著名数独学者<em>lotsofone</em>提供的建议）</li>
+</ol>
+
+<p>       当然，除了基本的数独要求外，我更希望数独是一个交友手段，通过数独，将用户聚合，给数独爱好者一个良好的互动平台，所以我同时希望数独有更强的用户交互性，开发pk平台等。</p>
+
+<p>       作为一名已经开发了好久的数独软件开发者，我为什么要写需求分析呢？答案很简答，因为这便是我们的软件的目标 :-)</p>
+
+<h2 id="软件设计模式">软件设计模式</h2>
+
+<p>       MVC（Model View Controller）模式是我学习的第一个软件软件设计模式，同时我认为按照mvc来写软件，各部分的功能能清晰一些，所以此软件采用MVC设计模式。下面简答介绍下MVC</p>
+
+<ul>
+  <li>Model</li>
+</ul>
+
+<p>模型，是开发软件功能的原型，在本项目中模型即为数独本身。</p>
+
+<ul>
+  <li>View</li>
+</ul>
+
+<p>界面，用于展现给用户的界面以及简单的界面交互，在本项目中主要为做数独的page。</p>
+
+<ul>
+  <li>Controller</li>
+</ul>
+
+<p>控制器，用于打通模型与界面，用户在界面上产生事件后，通过控制器调用模型的不同函数，此外，控制器也可访问数据来交付给界面，方便界面渲染出相应的页面，在本项目中为控制数独页面的js文件。</p>
+
+<h1 id="微信小程序开发介绍">微信小程序开发介绍</h1>
+
+<p>       首先要给小程序戴高帽，微信小程序“无需安装，用完即走”的产品理念非常帮，由于微信小程序体积较小，接口多，所以，从客户角度来看，轻量级的手机app非常便捷，用户懒得为了一个功能下一个大体积的app，小程序随用随下，用完即走。同时，如果腾讯可以结合用户数据分析，更加智能的为用户推荐小程序，整个生态便会变得更加高效且智能。</p>
+
+<p>       接下来介绍一下微信小程序开发的基本知识。</p>
+
+<p>       微信开发要了解四个文件类型，wxml，wxss，js，json</p>
+
+<ul>
+  <li>wxml是类html，它们的不同在于，wxml将div, p, span等统一整理为view，同时在wxml增加了逻辑判断，进一步划分Controller和View的界限，该在View中解决的问题不在Controller中判断。至于为什么微信搞这一套，可见知乎，内有Hux大佬的回答：<a href="https://www.zhihu.com/question/51809406">微信小程序为什么不用HTML5、CSS，自己搞了个WXML、WXSS，很多框架用不了，好处一点不知道？</a></li>
+  <li>wxss是类css，即控制html元素的格式的文件。</li>
+  <li>js脚本文件便是写控制器和模型的地方，js属逻辑层，做交互逻辑的，同时微信小程序也推荐将本地数据存为js，在util.js中存储本地数据，再讲数据接口暴露出来即可。好吧，你们应该也看出来了，我真的不知道该怎么介绍这鬼玩意，懂得都懂，不懂得我也解释不清楚。</li>
+  <li>json配置文件，负责页面背景色，标题栏内容，颜色等配置，同时在app.json还需要声明小程序需要的page页面，此处有一个小细节，page属性中的第一个page默认为开发时编译后显示的页面。</li>
+</ul>
+
+<p>       所以要开发微信小程序，写好每一个页面的这四个文件即可。</p>
+
+<h1 id="微信小程序-数独-sudoku-in-wechat">微信小程序-数独 Sudoku IN WeChat</h1>
+
+<p>       首先谈一下模型吧，数独模型，在数独类中，我设定了四个变量</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>变量名称</th>
+      <th>类型</th>
+      <th>用途</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>boardData</td>
+      <td>cellModel(*81)</td>
+      <td>记录每一个格子的状态</td>
+    </tr>
+    <tr>
+      <td>row</td>
+      <td>Set(*81)</td>
+      <td>记录每一行每一个数字的填写位置</td>
+    </tr>
+    <tr>
+      <td>col</td>
+      <td>Set(*81)</td>
+      <td>记录每一列每一个数字的填写位置</td>
+    </tr>
+    <tr>
+      <td>zone</td>
+      <td>Set(*81)</td>
+      <td>记录每一宫每一个数字的填写位置</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>       其中对于每个格子，我要存储的内容有（cellModel）</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>变量名称</th>
+      <th>类型</th>
+      <th>用途</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>cat</td>
+      <td>bool</td>
+      <td>记录该格子是题目类型，还是用户可填写类型</td>
+    </tr>
+    <tr>
+      <td>note</td>
+      <td>bool</td>
+      <td>记录改格子显示模式为note模式还是普通模式</td>
+    </tr>
+    <tr>
+      <td>content</td>
+      <td>string</td>
+      <td>记录格子里要填的数字（note模式下数字个数可大于1）</td>
+    </tr>
+    <tr>
+      <td>color</td>
+      <td>int</td>
+      <td>记录界面显示时要填的颜色，设置0为用户可填写的正常颜色，1为题目设置的数的颜色，2为用户填写出现冲突时的颜色，3为用户开启同数字提示功能后的高亮颜色</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>       提供函数接口有</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>函数名</th>
+      <th>返回值</th>
+      <th>描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>getData(x,y)</td>
+      <td>cellModel</td>
+      <td>用于更新界面时，得到boardData的数据</td>
+    </tr>
+    <tr>
+      <td>setData(x,y,num)</td>
+      <td>null</td>
+      <td>用于用户输入填写数字时更新boardData</td>
+    </tr>
+    <tr>
+      <td>setGame(x,y,num)</td>
+      <td>null</td>
+      <td>用于输入题目数据</td>
+    </tr>
+    <tr>
+      <td>freshProperty</td>
+      <td>null</td>
+      <td>用户每次填入数字之后需要更新boardData的数据</td>
+    </tr>
+    <tr>
+      <td>judgeCorrect</td>
+      <td>bool</td>
+      <td>判断答案是否正确</td>
+    </tr>
+    <tr>
+      <td>reset</td>
+      <td>null</td>
+      <td>重置数独</td>
+    </tr>
+    <tr>
+      <td>show</td>
+      <td>null</td>
+      <td>调试用</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>       其实大部分函数都很简答，此处算是有一个小亮点吧，就是freshProperty()中，利用row/col/zone三个set去快速更新color，判断每个set的数量是否大于1，如果大于1，说明set中存的格子都是有问题的，直接更新color即可，这个方法减少了遍历寻找出错格子的时间。其中set的存储用了一个简单的哈希，行数*10+列数，这样保证存储和寻找的时候也很快速。同时，在实现是注意note模式的格子对set的影响，最好判断，因为note模式里的格子的内容不应该存储于记录表中，而note与非note的转换时，需要注意下小细节。</p>
+
+<hr />
+
+<p>       之后讲下View，由于没有网页开发基础，加之配色细胞严重匮乏，所以，view就比较丑陋。</p>
+
+<p>       先是一行功能行，俩button+一个text，下面是两个表，一个是board，一个是table，都是拿canvas画上去的，乍一看，画面十分简(chou)约(lou)。</p>
+
+<p>       其实在view中还做了一层加载层，在数据没有加载成功时，让加载层覆盖在整个页面上，呈现加载动画。</p>
+
+<p><img src="https://i.loli.net/2018/04/07/5ac87fdf2af88.jpg" alt="" /></p>
+
+<hr />
+
+<p>       最后说一下Controller，在数独页面的js文件里有以下一些变量和函数</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>内容</th>
+      <th>类型</th>
+      <th>描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>sudoku</td>
+      <td>sudoku类</td>
+      <td>数独的实例</td>
+    </tr>
+    <tr>
+      <td>remainNum</td>
+      <td>int</td>
+      <td>记录宫中剩余个数</td>
+    </tr>
+    <tr>
+      <td>correctOrNot</td>
+      <td>布尔值</td>
+      <td>判断是否成功</td>
+    </tr>
+    <tr>
+      <td>level</td>
+      <td>int</td>
+      <td>游戏难度</td>
+    </tr>
+    <tr>
+      <td>timeFlag</td>
+      <td>时间是否开始</td>
+      <td>记录时间开始标记</td>
+    </tr>
+    <tr>
+      <td>noteOrNot</td>
+      <td>布尔值</td>
+      <td>是否开启note模式</td>
+    </tr>
+    <tr>
+      <td>timeOrNot</td>
+      <td>布尔值</td>
+      <td>是否开启时间</td>
+    </tr>
+    <tr>
+      <td>hintOrNor</td>
+      <td>布尔值</td>
+      <td>是否开启高亮同数字模式</td>
+    </tr>
+    <tr>
+      <td>generateOk</td>
+      <td>布尔值</td>
+      <td>判断数据加载情况</td>
+    </tr>
+    <tr>
+      <td>pathStack</td>
+      <td>stack</td>
+      <td>记录做题路径</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>函数名</th>
+      <th>返回值</th>
+      <th>描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>loadData</td>
+      <td>int**</td>
+      <td>获取题目数据</td>
+    </tr>
+    <tr>
+      <td>freshUI</td>
+      <td>null</td>
+      <td>更新视图</td>
+    </tr>
+    <tr>
+      <td>judge</td>
+      <td>null</td>
+      <td>判断正确与否</td>
+    </tr>
+    <tr>
+      <td>监听board函数</td>
+      <td>null</td>
+      <td>监听点击哪个cell，更新stack，修改data</td>
+    </tr>
+    <tr>
+      <td>监听table函数</td>
+      <td>null</td>
+      <td>监听点击哪个数字</td>
+    </tr>
+    <tr>
+      <td>timeStart</td>
+      <td>null</td>
+      <td>开始时间</td>
+    </tr>
+    <tr>
+      <td>timeStop</td>
+      <td>null</td>
+      <td>停止时间</td>
+    </tr>
+    <tr>
+      <td>newGame</td>
+      <td>null</td>
+      <td>开始新的游戏</td>
+    </tr>
+    <tr>
+      <td>redo</td>
+      <td>null</td>
+      <td>撤销</td>
+    </tr>
+    <tr>
+      <td>share</td>
+      <td>null</td>
+      <td>成功后显示分享窗口</td>
+    </tr>
+    <tr>
+      <td>canvasIdErrorCallback</td>
+      <td>null</td>
+      <td>获取并输出canvas绘制时的错误事件</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>       整个页面的业务就是，先显示加载动画，获取数独题目数据，更改generateOK值，去除加载动画，freshUI，显示数独界面，timeStart，开始计时，用户拖拽数字到数独表中，同时记录用户填写的数字与填入的位置，将要修改的格子当前的状态存入栈内，之后sudoku.setData，将填写的情况记录进数独实例中，freshProperty，freshUI,更新remainNum，一直重复操作，直到remainNum==0，judge，如果返回true，timeStop，share函数显示分享窗口，如果返回false，就继续等到下一次remainNum==0时进行同样的判断。</p>
+
+<h1 id="总结">总结</h1>
+
+<p>       总的来说，在开发过程中大体的思路就是上述，其实还有很多别的页面要做，例如设置页面，个人信息页面，关于页面等，项目还需要队友一起完成，此外，实现细节也会有很多问题，view中canvas绘制时，数字居中显示我就用了三四个小时的时间做人工处理，还有微信提供的新单位rpx和传统单位px的各种转换等等，这个项目其实需要注意的细节还是有一定数量的，同时pk的后端还没有学习，还需要一定的学习量，任务量颇大。</p>
+
+<p><strong>但是</strong>，</p>
+
+<p>我<strong>喜欢</strong>啊！</p>
+
+<p>项目开源在<a href="https://github.com/NEUHighSaltValue/Sudoku_in_Wechat">github</a>上，喜欢的点一波小星星</p>
+
+
+                <hr>
+
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2018/02/03/%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E4%B9%8Bknn%E5%92%8Csvm/" data-toggle="tooltip" data-placement="top" title="监督学习之knn和svm">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+
+            </div>
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- 来必力City版安装代码 -->
+                <div id="lv-container" data-id="city" data-uid="MTAyMC8zNDk2MS8xMTQ5OA==">
+                  <script type="text/javascript">
+                   (function(d, s) {
+                       var j, e = d.getElementsByTagName(s)[0];
+
+                       if (typeof LivereTower === 'function') { return; }
+
+                       j = d.createElement(s);
+                       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                       j.async = true;
+
+                       e.parentNode.insertBefore(j, e);
+                   })(document, 'script');
+                  </script>
+                <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+                </div>
+                <!-- City版安装代码已完成 -->
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="https://xfangfang.github.io">xfang Blog</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/li-tian-zhi-91">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+
+
+                    
+
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/tianzhipengfei">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Tianzhi Blog 2018
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = '';
+    var _gaDomain = '';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
