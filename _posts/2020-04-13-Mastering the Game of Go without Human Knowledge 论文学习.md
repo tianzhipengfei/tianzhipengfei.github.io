@@ -38,7 +38,9 @@ UCB算法是强化学习中的一个算法，在强化学习中，一般分为�
 
 ### 1.3.1 Greedy
 
-贪心算法，最直观容易理解。我们只要记录之前每个客人点过的订单，统计出每个菜的欢迎程度(该菜被顾客喜欢的次数/该菜的被推荐次数)，之后我们选择最受欢迎的即可。当然，为了让每个菜在起初都有被点的可能，我们为没有被点的菜品赋一个较大值 $ Q_{0} $，使得优先推荐从未被点过的菜。
+贪心算法，最直观容易理解。我们只要记录之前每个客人点过的订单，统计出每个菜的欢迎程度(该菜被顾客喜欢的次数/该菜的被推荐次数)，之后我们选择最受欢迎的即可。当然，为了让每个菜在起初都有被点的可能，我们为没有被点的菜品赋一个较大值 
+<img src="https://www.zhihu.com/equation?tex= Q_{0} " alt=" Q_{0} " class="ee_img tr_noresize" eeimg="1">
+，使得优先推荐从未被点过的菜。
 
 
 ![](https://tva1.sinaimg.cn/large/007S8ZIlly1gdrgblwmpsj30hw09sdgv.jpg)
@@ -59,7 +61,19 @@ UCB算法是强化学习中的一个算法，在强化学习中，一般分为�
 
 上图中Q<sub>t-1</sub>(i)由两项组成，左边为之前说的受欢迎程度，右边则与该菜被推荐的频率有关，t表示推荐的总次数，N<sub>t-1</sub>(i)表示第i道菜被推荐的次数，显然菜A和菜B在受欢迎程度相同时，因为菜A只被推荐过四次，A的总分数大于B，所以优先被选择推荐。
 
-那么为什么右边这项是这样一个式子呢？其实这就联系到了Upper Confidence Bound，统计得到的第i道菜受欢迎程度虽然和真实的受欢迎程度有误差，但这个误差是由上界的。根据Chernoff-Hoeffding Bound，假设样本的Reward是在[0, 1]区间的独立同分布随机变量，用 $ \bar p$ 表示样本的均值，用p表示分布的均值，（这里$ \bar p$ 表示菜根据历史信息得到的受欢迎结果，p表示这道菜真的受欢迎的结果）有不等式成立, $ P\left \{ \left | \overline{p} - p \right | \leq \delta \right \} \geq 1 - 2e^{2n\delta ^{2}}$,当 $ \delta = \sqrt{\frac{2 ln(t)}{n}} $时，$ \overline{p} - \sqrt{\frac{2  ln(t)}{n}}\leq p\leq \overline{p} + \sqrt{\frac{2  ln(t)}{n}} $是以 $ 1 - \frac{2}{t^{4}} $的概率成立的。
+那么为什么右边这项是这样一个式子呢？其实这就联系到了Upper Confidence Bound，统计得到的第i道菜受欢迎程度虽然和真实的受欢迎程度有误差，但这个误差是由上界的。根据Chernoff-Hoeffding Bound，假设样本的Reward是在[0, 1]区间的独立同分布随机变量，用 
+<img src="https://www.zhihu.com/equation?tex= \bar p" alt=" \bar p" class="ee_img tr_noresize" eeimg="1">
+ 表示样本的均值，用p表示分布的均值，（这里
+<img src="https://www.zhihu.com/equation?tex= \bar p" alt=" \bar p" class="ee_img tr_noresize" eeimg="1">
+ 表示菜根据历史信息得到的受欢迎结果，p表示这道菜真的受欢迎的结果）有不等式成立, 
+<img src="https://www.zhihu.com/equation?tex= P\left \{ \left | \overline{p} - p \right | \leq \delta \right \} \geq 1 - 2e^{2n\delta ^{2}}" alt=" P\left \{ \left | \overline{p} - p \right | \leq \delta \right \} \geq 1 - 2e^{2n\delta ^{2}}" class="ee_img tr_noresize" eeimg="1">
+,当 
+<img src="https://www.zhihu.com/equation?tex= \delta = \sqrt{\frac{2 ln(t)}{n}} " alt=" \delta = \sqrt{\frac{2 ln(t)}{n}} " class="ee_img tr_noresize" eeimg="1">
+时，
+<img src="https://www.zhihu.com/equation?tex= \overline{p} - \sqrt{\frac{2  ln(t)}{n}}\leq p\leq \overline{p} + \sqrt{\frac{2  ln(t)}{n}} " alt=" \overline{p} - \sqrt{\frac{2  ln(t)}{n}}\leq p\leq \overline{p} + \sqrt{\frac{2  ln(t)}{n}} " class="ee_img tr_noresize" eeimg="1">
+是以 
+<img src="https://www.zhihu.com/equation?tex= 1 - \frac{2}{t^{4}} " alt=" 1 - \frac{2}{t^{4}} " class="ee_img tr_noresize" eeimg="1">
+的概率成立的。
 
 # 2. 论文内容
 
@@ -69,7 +83,9 @@ UCB算法是强化学习中的一个算法，在强化学习中，一般分为�
 
 # 2.2 Methods
 
-两大部分，一部分是深度神经网络 $f_{θ}$，另一部分是蒙特卡洛树搜索MCTS。
+两大部分，一部分是深度神经网络 
+<img src="https://www.zhihu.com/equation?tex=f_{θ}" alt="f_{θ}" class="ee_img tr_noresize" eeimg="1">
+，另一部分是蒙特卡洛树搜索MCTS。
 
 
 
@@ -89,7 +105,11 @@ MCTS的作用是记录棋盘的状态，和不同状态间的关系。为什么�
 ![](https://tva1.sinaimg.cn/large/007S8ZIlly1gds3he6jzsj30pl0pv43a.jpg)
 
 
-MCTS其实很简单，当MCTS全部建立起来后，机器便可以通过遍历MCTS得到下一步怎么下，因为MCTS对每一步的信息都进行了统计，这些信息包括一个先验概率P(s, a)，一个被访问次数N(s,a)，和一个action-value Q(s,a)，P与当前的棋盘状态和选择下一步有关；N是统计在s局面下，选择a这个位置的次数，和之前推荐顾客某个菜品的次数类似；Q是选择这个位置最终导致胜利了多少次，类似于之前推荐给顾客后，顾客最终喜欢了多少次。MCTS每次都使用UCB算法进行选择，从所有可选的位置中，选择Q+U最高的位置下，Q其实就是统计了经过S,a这个状态和move最终导致的胜率是多少，$ {s}' $ 是指最终的一个状态 $ V({s}')$ 取得胜利的指示函数，而U就是计算的统计概率和真实概率的误差上界，是上述UCB中的加号右边那项。
+MCTS其实很简单，当MCTS全部建立起来后，机器便可以通过遍历MCTS得到下一步怎么下，因为MCTS对每一步的信息都进行了统计，这些信息包括一个先验概率P(s, a)，一个被访问次数N(s,a)，和一个action-value Q(s,a)，P与当前的棋盘状态和选择下一步有关；N是统计在s局面下，选择a这个位置的次数，和之前推荐顾客某个菜品的次数类似；Q是选择这个位置最终导致胜利了多少次，类似于之前推荐给顾客后，顾客最终喜欢了多少次。MCTS每次都使用UCB算法进行选择，从所有可选的位置中，选择Q+U最高的位置下，Q其实就是统计了经过S,a这个状态和move最终导致的胜率是多少，
+<img src="https://www.zhihu.com/equation?tex= {s}' " alt=" {s}' " class="ee_img tr_noresize" eeimg="1">
+ 是指最终的一个状态 
+<img src="https://www.zhihu.com/equation?tex= V({s}')" alt=" V({s}')" class="ee_img tr_noresize" eeimg="1">
+ 取得胜利的指示函数，而U就是计算的统计概率和真实概率的误差上界，是上述UCB中的加号右边那项。
 
 ![](https://tva1.sinaimg.cn/large/007S8ZIlly1gds4jxgpqwj30ox0g2tcy.jpg)
 
@@ -101,7 +121,9 @@ b. Expand and Evaluate: 当MCTS遇到叶子节点时，说明之前探索到这�
 
 c. Backup: 当一盘棋结束后，就要对整盘棋经历过的所有move进行更新。还记得么，每个move存储了这一步move导致最终获胜的胜率是多少，所以当棋盘结束后要对其进行更新。
 
-d. play: 当多次模拟过程后，便可以通过概率得到π，$ \pi_{a} \propto N(s, a)^{1/\pi } $, τ 是温度参数（temperature parameter），它可以控制π的分布更均匀还是更陡峭，通过调节它可以让NN更好的进行学习。
+d. play: 当多次模拟过程后，便可以通过概率得到π，
+<img src="https://www.zhihu.com/equation?tex= \pi_{a} \propto N(s, a)^{1/\pi } " alt=" \pi_{a} \propto N(s, a)^{1/\pi } " class="ee_img tr_noresize" eeimg="1">
+, τ 是温度参数（temperature parameter），它可以控制π的分布更均匀还是更陡峭，通过调节它可以让NN更好的进行学习。
 
 经过多次的模拟对弈后，便得到了众多的训练数据(s, π, z)，之后更新NN即可。通过不断地迭代，不断地训练，NN输出的结果与统计的结果越来越相似，最终导致通过自我博弈，获得了高超的围棋水平。
 
