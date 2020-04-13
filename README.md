@@ -1,5 +1,7 @@
 # Tianzhi blog
 
-## Learn how to build a personal blog by github page and jekyll
+Hello, everyone.
 
-This templete is from Hux https://github.com/Huxpro 
+This repo is for my personal blog. The website is https://tianzhipengfei.github.io/
+
+Also, thank Hux. This templete is from https://github.com/Huxpro 
