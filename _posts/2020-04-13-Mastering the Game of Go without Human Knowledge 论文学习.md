@@ -1,4 +1,4 @@
-<!-----
+---
 layout:     post
 title:      "Mastering the Game of Go without Human Knowledge 论文学习"
 subtitle:   "机器的重生竟然是放弃人类"
@@ -10,7 +10,7 @@ tags:
   - Inforcement Learning
   - Alpha Go
   - 论文笔记
------>
+---
 
 # Mastering the Game of Go without Human Knowledge
 
