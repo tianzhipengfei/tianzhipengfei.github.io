@@ -3,6 +3,7 @@ layout: default
 ---
 
 <!-- Page Header -->
+<<<<<<< HEAD
 <header class="intro-header" style="background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}')">
     <div class="container">
         <div class="row">
@@ -16,14 +17,22 @@ layout: default
         </div>
     </div>
 </header>
+=======
+{% include intro-header.html type='page' %}
+>>>>>>> upstream/master
 
 <!-- Main Content -->
 <div class="container">
 	<div class="row">
         {% if site.sidebar == false %}
 <!-- NO SIDEBAR -->
+<<<<<<< HEAD
     <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 post-container">
+=======
+    <!-- PostList Container -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 postlist-container">
+>>>>>>> upstream/master
                 {{ content }}
             </div>
     <!-- Sidebar Container -->
@@ -33,6 +42,7 @@ layout: default
                 sidebar-container">
 
                 <!-- Featured Tags -->
+<<<<<<< HEAD
                 {% if site.featured-tags %}
                 <section>
                     <!-- no hr -->
@@ -59,17 +69,31 @@ layout: default
                     {% endfor %}
                 </ul>
                 {% endif %}
+=======
+                {% include featured-tags.html %}
+
+                <!-- Friends Blog -->
+                {% include friends.html %}
+>>>>>>> upstream/master
             </div>
         {% else %}
 
 <!-- USE SIDEBAR -->
+<<<<<<< HEAD
     <!-- Post Container -->
+=======
+    <!-- PostList Container -->
+>>>>>>> upstream/master
     		<div class="
                 col-lg-8 col-lg-offset-1
                 col-md-8 col-md-offset-1
                 col-sm-12
                 col-xs-12
+<<<<<<< HEAD
                 post-container
+=======
+                postlist-container
+>>>>>>> upstream/master
             ">
     			{{ content }}
     		</div>
@@ -82,6 +106,7 @@ layout: default
                 sidebar-container
             ">
                 <!-- Featured Tags -->
+<<<<<<< HEAD
                 {% if site.featured-tags %}
                 <section>
                     <hr class="hidden-sm hidden-xs">
@@ -183,7 +208,42 @@ layout: default
                     {% endfor %}
                 </ul>
                 {% endif %}
+=======
+                {% include featured-tags.html %}
+
+                <!-- Short About -->
+                {% include short-about.html %}
+
+                <!-- Friends Blog -->
+                {% include friends.html %}
+>>>>>>> upstream/master
     		</div>
         {% endif %}
 	</div>
 </div>
+<<<<<<< HEAD
+=======
+
+{% if site.page-mathjax %}
+<!-- Add support for Mathjax by Voleking-->
+<!-- If you want to see formulars well in post preview, Maybe you should add this.-->
+<!-- However, most of the time formulars may not appear in the post preview, you can delete it.-->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true,
+    }
+  });
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+{% endif %}
+>>>>>>> upstream/master

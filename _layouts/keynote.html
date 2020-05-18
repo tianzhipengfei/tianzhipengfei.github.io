@@ -7,6 +7,7 @@ layout: default
 <!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
 
 <!-- Post Header -->
+<<<<<<< HEAD
 <style type="text/css">
     header.intro-header{
         /*background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}')*/
@@ -44,6 +45,10 @@ layout: default
         </div>
     </iframe>
 </header>
+=======
+{% include intro-header.html type='keynote' %}
+
+>>>>>>> upstream/master
 
 <!-- Post Content -->
 <article>
@@ -57,6 +62,7 @@ layout: default
 
 				{{ content }}
 
+<<<<<<< HEAD
                 <hr>
 
 
@@ -64,15 +70,36 @@ layout: default
                     {% if page.previous.url %}
                     <li class="previous">
                         <a href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.previous.title}}">&larr; Previous Post</a>
+=======
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    {% if page.previous.url %}
+                    <li class="previous">
+                        <a href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.previous.title}}">
+                        Previous<br>
+                        <span>{{page.previous.title}}</span>
+                        </a>
+>>>>>>> upstream/master
                     </li>
                     {% endif %}
                     {% if page.next.url %}
                     <li class="next">
+<<<<<<< HEAD
                         <a href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.next.title}}">Next Post &rarr;</a>
                     </li>
                     {% endif %}
                 </ul>
 
+=======
+                        <a href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.next.title}}">
+                        Next<br>
+                        <span>{{page.next.title}}</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+                <hr style="visibility: hidden;">
+>>>>>>> upstream/master
 
                 {% if site.disqus_username %}
                 <!-- disqus 评论框 start -->
@@ -92,6 +119,7 @@ layout: default
                 col-md-10 col-md-offset-1 ">
 
                 <!-- Featured Tags -->
+<<<<<<< HEAD
                 {% if site.featured-tags %}
                 <section>
                     <hr class="hidden-sm hidden-xs">
@@ -118,6 +146,13 @@ layout: default
                     {% endfor %}
                 </ul>
                 {% endif %}
+=======
+                {% include featured-tags.html %}
+
+                <!-- Friends Blog -->
+                {% include friends.html %}
+
+>>>>>>> upstream/master
             </div>
         </div>
     </div>
@@ -179,7 +214,11 @@ layout: default
 </script>
 <!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
 <script>
+<<<<<<< HEAD
     async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+=======
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+>>>>>>> upstream/master
         anchors.options = {
           visible: 'always',
           placement: 'right',
