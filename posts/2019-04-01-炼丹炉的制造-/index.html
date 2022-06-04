@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-cn" >
+<head>
+
+    
+    
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Tianzhi Li    " />
+	
+	
+	
+	<title>炼丹炉的制造 ｜ 天志鹏飞的小窝</title>
+	
+    
+    
+    <meta name="description" content="CentOS系统的安装以及显卡驱动、cuda、cudnn、TensorFlow的配置 1. CentOS的安装 去CentOS官网(http://59.80.44.49/isoredirect.centos." />
+    
+
+    
+    
+    <meta name="keywords" content="tianzhi, blog, zozo" />
+    
+
+	
+    
+    <link rel="shortcut icon" href="https://tianzhipengfei.github.io/images/favicon.ico" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="https://tianzhipengfei.github.io/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="https://tianzhipengfei.github.io/css/zozo.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="https://tianzhipengfei.github.io/css/highlight.css" />
+
+    
+    
+</head>
+
+<body>
+    <div class="main animate__animated animate__fadeInDown">
+        <div class="nav_container animated fadeInDown">
+    <div class="site_nav" id="site_nav">
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/posts/">Blogs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/">Tags</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="menu_icon">
+        <a id="menu_icon"><i class="ri-menu-line"></i></a>
+    </div>
+</div>
+        <div class="header animated fadeInDown">
+    <div class="site_title_container">
+        <div class="site_title">
+            <h1>
+                <a href="https://tianzhipengfei.github.io/">
+                    
+                    <img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h2wcny2grdj20at08eglu.jpg" width=158 height=120/>
+                </a>
+            </h1>
+        </div>
+        <div class="description">
+            <p class="sub_title">咚咚</p>
+            <div class="my_socials">
+                
+                
+                
+                
+                <a href="https://github.com/tianzhipengfei" title="github" target="_blank"><i class="ri-github-fill"></i></a>
+                
+                
+                
+                
+                
+                
+                
+                
+                <a href="https://tianzhipengfei.github.io/index.xml" type="application/rss+xml" title="rss" target="_blank"><i
+                        class="ri-rss-fill"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+        <div class="content">
+            <div class="post_page">
+                <div class="post animate__animated animate__fadeInDown">
+                    <div class="post_title post_detail_title">
+                        <h2><a href='/posts/2019-04-01-%E7%82%BC%E4%B8%B9%E7%82%89%E7%9A%84%E5%88%B6%E9%80%A0-/'>炼丹炉的制造</a></h2>
+                        <span class="date">2019.04.01</span>
+                    </div>
+                    <div class="post_content markdown"><h1 id="centos系统的安装以及显卡驱动cudacudnntensorflow的配置">CentOS系统的安装以及显卡驱动、cuda、cudnn、TensorFlow的配置</h1>
+<h2 id="1-centos的安装">1. CentOS的安装</h2>
+<ol>
+<li>
+<p>去CentOS官网(http://59.80.44.49/isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-DVD-1810.iso )下载镜像，并刻录系统安装盘</p>
+</li>
+<li>
+<p>开机，进入BIOS，调整启动盘顺序，将UEFI安装盘放在第一个</p>
+</li>
+<li>
+<p>选择 &lsquo;Install CentOS 7&rsquo;，不要按Enter，而是按 &lsquo;E&rsquo;，编辑所选项</p>
+</li>
+<li>
+<p>设置参数，将inst.stage2设置为hd:/dev/sdb* (*为u盘的硬盘)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">inst.stage2<span class="o">=</span>hd:/dev/sdb*
+</span></span></code></pre></div><p>``</p>
+</li>
+<li>
+<p>按 Ctrl-x 执行，并开始安装</p>
+</li>
+<li>
+<p>语言设置随便选</p>
+</li>
+<li>
+<p>Software Selection： 因为这台机子要自己使用，所以我选择 GNome Desktop</p>
+</li>
+<li>
+<p>Installation Destination： 分区设置，大家可以根据自己的情况自行设置。（一般交换空间设置为内存的两倍，boot我分配了1G，boot/efi也分配了1G，var分配了50G，根目录分配了200G，其余都分配给了home）</p>
+</li>
+<li>
+<p>Begin  Installation 开始安装即可</p>
+</li>
+<li>
+<p>设置root密码和用户账号及密码</p>
+</li>
+<li>
+<p>听歌，等待安装…</p>
+</li>
+<li>
+<p>重启</p>
+</li>
+<li>
+<p>接受协议、配置网络</p>
+</li>
+</ol>
+<h2 id="2-驱动安装">2. 驱动安装</h2>
+<ol>
+<li>
+<p>切换root</p>
+</li>
+<li>
+<p>添加ElRepo源</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+</span></span><span class="line"><span class="cl">rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm
+</span></span></code></pre></div><p>``</p>
+</li>
+<li>
+<p>安装nvidia-detect，用于检查显卡，并查看需要的驱动版本号</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">yum install nvidia-detect.
+</span></span><span class="line"><span class="cl">nvidia-detect -v
+</span></span></code></pre></div><p>``</p>
+</li>
+<li>
+<p>按照刚才查询的版本号下载驱动，link(<a href="https://www.nvidia.com/Download/index.aspx?lang=en-us">https://www.nvidia.com/Download/index.aspx?lang=en-us</a>)</p>
+</li>
+<li>
+<p>安装前准备工作</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">yum -y update //若系统很久没跟新，这句可能耗时较长
+</span></span><span class="line"><span class="cl">yum -y groupinstall <span class="s2">&#34;GNOME Desktop&#34;</span> <span class="s2">&#34;Development Tools&#34;</span>
+</span></span><span class="line"><span class="cl">yum -y install kernel-devel
+</span></span><span class="line"><span class="cl">yum -y install epel-release
+</span></span><span class="line"><span class="cl">yum -y install dkms
+</span></span></code></pre></div><p>``</p>
+</li>
+<li>
+<p>禁用nouveau</p>
+</li>
+</ol>
+<h2 id="3-cuda安装">3. CUDA安装</h2>
+<ol>
+<li>
+<p>去官网(<a href="https://developer.nvidia.com/cuda-90-download-archive">https://developer.nvidia.com/cuda-90-download-archive</a> )根据自己的环境，下载对应的runfile</p>
+</li>
+<li>
+<p><code>init 3</code></p>
+</li>
+<li>
+<p><code>bash installation_file</code> 安装过程中，第一个是安装驱动，由于我们之前安装了驱动，所以此处选择no</p>
+</li>
+<li>
+<p>配置环境变量</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim ~/.bashrc
+</span></span><span class="line"><span class="cl"><span class="c1">#添加环境变量</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span>local/cuda-9.0/bin
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span>ELD_LIBRARY_PATH:/usr/local/cuda-9.0/lib64  
+</span></span><span class="line"><span class="cl"><span class="c1">#执行</span>
+</span></span><span class="line"><span class="cl"><span class="nb">source</span> ~/.bashrc
+</span></span></code></pre></div><p>``</p>
+</li>
+</ol>
+<h2 id="4-cudnn">4. CUDNN</h2>
+<ol>
+<li>
+<p>选择合适的版本的CUDNN，选最新的和CUDA版本对应的就可以了</p>
+</li>
+<li>
+<p>解压文件 tar -xzvf cudnn_file</p>
+</li>
+<li>
+<p>把文件复制到对应的文件夹</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo cp cuda/include/cudnn.h /usr/local/cuda-9.0/include
+</span></span><span class="line"><span class="cl">sudo cp cuda/lib64/libcudnn* /usr/local/cuda-9.0/lib64
+</span></span></code></pre></div><p>``</p>
+</li>
+<li>
+<p>修改文件权限</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo chmod a+r /usr/local/cuda-9.0/include/cudnn.h /usr/local/cuda-9.0/lib64/libcudnn*
+</span></span></code></pre></div><p>``</p>
+</li>
+</ol>
+<hr>
+<h3 id="reference">Reference</h3>
+<ol>
+<li>驱动安装: <a href="https://www.jianshu.com/p/e2aab8e38cac">https://www.jianshu.com/p/e2aab8e38cac</a></li>
+<li>CUDA、CUDNN安装: <a href="https://www.jianshu.com/p/a201b91b3d96">https://www.jianshu.com/p/a201b91b3d96</a></li>
+</ol>
+</div>
+                    <div class="post_footer">
+                        
+                        <div class="meta">
+                            <div class="info">
+                                <span class="field tags">
+                                    <i class="ri-stack-line"></i>
+                                    
+                                    <a href="https://tianzhipengfei.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+                                    
+                                </span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                
+                
+<div class="doc_comments">
+    <div class="comments_block_title">发表评论</div>
+    <div id="vcomments"></div>
+</div>
+
+<link rel="stylesheet" href="https://tianzhipengfei.github.io/css/comments.css" />
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        appId: 'CabQVpHJRX5VcdC9kMuvNWS1-gzGzoHsz',
+        appKey: 'oQjHzQS8zsX04BTSFouWwjXX',
+        placeholder: '想说啥就说点啥',
+        visitor: 'true',
+    })
+</script>
+                
+            </div>
+        </div>
+    </div>
+    <a id="back_to_top" href="#" class="back_to_top"><i class="ri-arrow-up-s-line"></i></a>
+    <footer class="footer">
+    <div class="powered_by">
+        <a href="https://varkai.com">Designed by VarKai,</a>
+        <a href="http://www.gohugo.io/">Proudly published with Hugo</a>
+    </div>
+
+    <div class="footer_slogan">
+        <span>一个没有故事的男童鞋</span>
+    </div>
+</footer>
+    <script src="https://tianzhipengfei.github.io/js/jquery-3.5.1.min.js"></script>
+<link href="https://tianzhipengfei.github.io/css/fancybox.min.css" rel="stylesheet">
+<script src="https://tianzhipengfei.github.io/js/fancybox.min.js"></script>
+<script src="https://tianzhipengfei.github.io/js/zozo.js"></script>
+
+
+<script type="text/javascript" async
+    src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\[\[', '\]\]']],
+                processEscapes: true,
+                processEnvironments: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+                TeX: {
+                    equationNumbers: { autoNumber: "AMS" },
+                    extensions: ["AMSmath.js", "AMSsymbols.js"]
+                }
+            }
+        });
+
+        MathJax.Hub.Queue(function () {
+            
+            
+            
+            var all = MathJax.Hub.getAllJax(), i;
+            for (i = 0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+<style>
+    code.has-jax {
+        font: inherit;
+        font-size: 100%;
+        background: inherit;
+        border: inherit;
+        color: #515151;
+    }
+</style>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-88QM032JYJ', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</body>
+
+</html>
