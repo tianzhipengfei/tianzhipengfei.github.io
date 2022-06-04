@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>天志鹏飞的小窝</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on 天志鹏飞的小窝</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 13 Apr 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mastering the Game of Go without Human Knowledge 论文学习</title>
+      <link>http://localhost:1313/posts/2020-04-13-mastering-the-game-of-go-without-human-knowledge-%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Mon, 13 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/posts/2020-04-13-mastering-the-game-of-go-without-human-knowledge-%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0/</guid>
+      <description>Mastering the Game of Go without Human Knowledge 论文地址 众所周知，Alpha Go Zero是一个围棋的AI产品，经历了几次更新迭代之后，它是目前最强大的围棋AI，能力超过战胜了李世石的Alpha Go Lee和战胜了柯洁的Alpha Go Mast</description>
+    </item>
+    
+    <item>
+      <title>关于我</title>
+      <link>http://localhost:1313/about/</link>
+      <pubDate>Sat, 29 Dec 2018 20:24:28 +0800</pubDate>
+      
+      <guid>http://localhost:1313/about/</guid>
+      <description>你好，这里是天志鹏飞的小窝，欢迎你们的到来！👏🏻👏🏻👏🏻👏🏻 总体来说，我是一个平凡的人，我是一个爱笑的人，我是一个对世界还充满好奇的人，我是一个减肥减不成功会安慰自己健康重要的人，我是一个被别人称作乐</description>
+    </item>
+    
+    <item>
+      <title>别了，我爱的头条</title>
+      <link>http://localhost:1313/posts/2018-10-04-%E5%88%AB%E4%BA%86%E5%A4%B4%E6%9D%A1/</link>
+      <pubDate>Thu, 04 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/posts/2018-10-04-%E5%88%AB%E4%BA%86%E5%A4%B4%E6%9D%A1/</guid>
+      <description>别了，我爱的头条 Work Review 7月23日，刚刚放假的我，回家呆了两天，便入职了，成为了头条的实习生的一员。经历了一早上的培训，便来到了全是大佬的nlp组，从此开始了我在头条nlp的喜怒哀乐。 两个月的时间里，我在</description>
+    </item>
+    
+    <item>
+      <title>关于数独的那点事</title>
+      <link>http://localhost:1313/posts/2018-04-07-%E5%85%B3%E4%BA%8E%E6%95%B0%E7%8B%AC%E7%9A%84%E9%82%A3%E7%82%B9%E4%BA%8B/</link>
+      <pubDate>Sat, 07 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/posts/2018-04-07-%E5%85%B3%E4%BA%8E%E6%95%B0%E7%8B%AC%E7%9A%84%E9%82%A3%E7%82%B9%E4%BA%8B/</guid>
+      <description>数独介绍 数独是一个通过逻辑推理填写9*9宫格的益智类游戏，填写规则根据数独的种类不同而变化，最基础的数独的要求是，在每个格子中填写1~9中的数字，使得每行每列每宫（3*3）中不出现重复的数字。 数独的难</description>
+    </item>
+    
+  </channel>
+</rss>
