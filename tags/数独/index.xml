@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>数独 on 天志鹏飞的小窝</title>
+    <link>https://tianzhipengfei.github.io/tags/%E6%95%B0%E7%8B%AC/</link>
+    <description>Recent content in 数独 on 天志鹏飞的小窝</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 07 Apr 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://tianzhipengfei.github.io/tags/%E6%95%B0%E7%8B%AC/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>关于数独的那点事</title>
+      <link>https://tianzhipengfei.github.io/posts/2018-04-07-%E5%85%B3%E4%BA%8E%E6%95%B0%E7%8B%AC%E7%9A%84%E9%82%A3%E7%82%B9%E4%BA%8B/</link>
+      <pubDate>Sat, 07 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://tianzhipengfei.github.io/posts/2018-04-07-%E5%85%B3%E4%BA%8E%E6%95%B0%E7%8B%AC%E7%9A%84%E9%82%A3%E7%82%B9%E4%BA%8B/</guid>
+      <description>数独介绍 数独是一个通过逻辑推理填写9*9宫格的益智类游戏，填写规则根据数独的种类不同而变化，最基础的数独的要求是，在每个格子中填写1~9中的数字，使得每行每列每宫（3*3）中不出现重复的数字。 数独的难</description>
+    </item>
+    
+  </channel>
+</rss>
