@@ -131,7 +131,7 @@ hr {
 
 .header {
   width: 720px;
-  padding: 3vh 0 3vh 0;
+  padding: 50px 0 140px 0;
   margin: 0 auto;
   background-size: cover;
 }
@@ -700,7 +700,7 @@ a.back_to_top:hover span {
     margin: 0 6px;
   }
   .post {
-    /*margin-top: 40px;*/
+    margin-top: 40px;
   }
   .post .post_title a {
     font-size: 1.4rem;
